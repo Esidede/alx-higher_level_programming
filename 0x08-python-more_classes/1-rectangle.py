@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-# 0-rectangle module
+
+
 """
 This module contains a class Rectangle
 >>> Rectangle = __import__('1-rectangle').Rectangle
