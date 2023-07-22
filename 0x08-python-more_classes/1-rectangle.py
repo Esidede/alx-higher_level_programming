@@ -1,78 +1,54 @@
 #!/usr/bin/python3
-
-
-
-"""
-This module contains a class Rectangle
->>> Rectangle = __import__('1-rectangle').Rectangle
->>> my_rectangle = Rectangle(2, 4)
->>> print(type(my_rectangle))
-<class '1-rectangle.Rectangle'>
->>> dict_result = my_rectangle.__dict__
->>> print(dict(sorted(dict_result.items())))
-{'_Rectangle__height': 4, '_Rectangle__width': 2}
-"""
+"""1. Real definition of a rectangle"""
 
 
 class Rectangle:
-    """This is an class Rectangle with instance attribute heigth and width"""
+    """Class Rectangle that defines a rectangle"""
 
-    def __init__(self, width, height):
-        """
-        initializes height and width of the rectangle
-        upon creation of an instance using property
-        getters and setters
-        >>> my_rectangle = Rectangle(2, '4')
-        Traceback (most recent call last):
-            ...
-        TypeError: height must be an integer
-        >>> my_rectangle = Rectangle(0, 0)
-        >>> my_rectangle.width = 10
-        >>> my_rectangle.height = -3
-        Traceback (most recent call last):
-            ...
-        ValueError: height must be >= 0
-        """
-        self.width = width
+    def __init__(self, width=0, height=0):
+        """Function that initializes instances for width & height"""
+
         self.height = height
-
-    @property
-    def width(self):
-        """Property getter for the width"""
-        return self.__width
-
-    @width.setter
-    def width(self, width):
-        """
-        Property setter for the width
-        checks if the type for the width is an integer or < 0
-        if above conditions aren't met errors are raised
-        """
-        if type(width) is not int:
-            raise TypeError("width must be an integer")
-        if width < 0:
-            raise ValueError("width must be >= 0")
-        self.__width = width
+        self.width = width
 
     @property
     def height(self):
-        """Property getter for the height"""
+        """Function that retrieves height instance attribute"""
+
         return self.__height
 
     @height.setter
-    def height(self, height):
+    def height(self, value):
         """
-        Property setter for the height
-        checks if the type for the height is an integer or < 0
-        if above conditions aren't met errors are raised
+        function that sets height instance attribute
+        Raise TypeError and ValueError if not integer or natural number resp.
         """
-        if type(height) is not int:
+
+        if not isinstance(value, int):
             raise TypeError("height must be an integer")
-        if height < 0:
+
+        if value < 0:
             raise ValueError("height must be >= 0")
-        self.__height = height
 
+        self.__height = value
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod(verbose=True)
+    @property
+    def width(self):
+        """Function that retrieves width instance attribute"""
+
+        return self.__width
+
+    @width.setter
+    def width(self, value):
+        """
+        Function that sets width instance attribute
+        Raise TypeError & ValueError if not integer or natural number resp.
+        """
+
+        if not isinstance(value, int):
+            raise TypeError("width must be an integer")
+
+        if value < 0:
+            raise ValueError("width must be >= 0")
+
+        self.__width = value

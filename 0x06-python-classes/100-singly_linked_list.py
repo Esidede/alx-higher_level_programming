@@ -1,79 +1,93 @@
 #!/usr/bin/python3
-"""Define classes for a singly-linked list."""
+"""
+7. Singly linked list
+A class Node that defines a node of a singly linked list
+"""
 
 
 class Node:
-    """Represent a node in a singly-linked list."""
+    """"Class that defines a node"""
 
     def __init__(self, data, next_node=None):
-        """Initialize a new Node.
+        """Define private instance attributes: data & next_node"""
 
-        Args:
-            data (int): The data of the new Node.
-            next_node (Node): The next node of the new Node.
-        """
         self.data = data
         self.next_node = next_node
 
     @property
     def data(self):
-        """Get/set the data of the Node."""
+        """Function that returns data attribute"""
+
         return (self.__data)
 
     @data.setter
     def data(self, value):
+        """
+        Define private instance attribute: value
+        Raise TypeError if value is not an integer
+        """
+
         if not isinstance(value, int):
-            raise TypeError("data must be an integer")
+            raise TypeError('data must be an integer')
+
         self.__data = value
 
     @property
     def next_node(self):
-        """Get/set the next_node of the Node."""
+        """Define private instance attribute: next_node"""
+
         return (self.__next_node)
 
     @next_node.setter
     def next_node(self, value):
-        if not isinstance(value, Node) and value is not None:
-            raise TypeError("next_node must be a Node object")
+        """
+        Define private instance attribute: value
+        Raise TypeError if value is not an integer or None/NULL
+        """
+
+        if (value is not None and not isinstance(value, Node)):
+            raise TypeError('next_node must be a Node object')
+
         self.__next_node = value
 
 
 class SinglyLinkedList:
-    """Represent a singly-linked list."""
+    """Class that defines a singly linked list"""
 
     def __init__(self):
-        """Initalize a new SinglyLinkedList."""
-        self.__head = None
+        """Define private instance attribute: head(first node)"""
 
-    def sorted_insert(self, value):
-        """Insert a new Node to the SinglyLinkedList.
-
-        The node is inserted into the list at the correct
-        ordered numerical position.
-
-        Args:
-            value (Node): The new Node to insert.
-        """
-        new = Node(value)
-        if self.__head is None:
-            new.next_node = None
-            self.__head = new
-        elif self.__head.data > value:
-            new.next_node = self.__head
-            self.__head = new
-        else:
-            tmp = self.__head
-            while (tmp.next_node is not None and
-                    tmp.next_node.data < value):
-                tmp = tmp.next_node
-            new.next_node = tmp.next_node
-            tmp.next_node = new
+        self.head = None
 
     def __str__(self):
-        """Define the print() representation of a SinglyLinkedList."""
-        values = []
-        tmp = self.__head
-        while tmp is not None:
-            values.append(str(tmp.data))
-            tmp = tmp.next_node
-        return ('\n'.join(values))
+        """Define private instance attributes: printall & location"""
+
+        printall = ""
+        location = self.head
+        while location:
+            printall += str(location.data) + "\n"
+            location = location.next_node
+
+        return printall[:-1]
+
+    def sorted_insert(self, value):
+        """Function that inserts new node into correct sorted position"""
+
+        tmp_node = Node(value)
+        if not self.head:
+            self.head = tmp_node
+            return
+
+        if value < self.head.data:
+            tmp_node.next_node = self.head
+            self.head = tmp_node
+            return
+
+        location = self.head
+        while location.next_node and location.next_node.data < value:
+            location = location.next_node
+
+        if location.next_node:
+            tmp_node.next_node = location.next_node
+
+        location.next_node = tmp_node
